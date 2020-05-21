@@ -1,5 +1,6 @@
 #include "../WHash_md5.hh"
 #include <cstdio>
+#include <cstdint>
 #include <array>
 #include <memory>
 
