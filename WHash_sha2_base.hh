@@ -152,14 +152,14 @@ WHash::SHA2_base<UInt_t, kRounds,
         a = temp1 + temp2;
     }
 
-    mHashData.h0 = a;
-    mHashData.h1 = b;
-    mHashData.h2 = c;
-    mHashData.h3 = d;
-    mHashData.h4 = e;
-    mHashData.h5 = f;
-    mHashData.h6 = g;
-    mHashData.h7 = h;
+    mHashData.h0 += a;
+    mHashData.h1 += b;
+    mHashData.h2 += c;
+    mHashData.h3 += d;
+    mHashData.h4 += e;
+    mHashData.h5 += f;
+    mHashData.h6 += g;
+    mHashData.h7 += h;
 }
 
 template<typename UInt_t, unsigned kRounds,
