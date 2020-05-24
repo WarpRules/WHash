@@ -143,7 +143,7 @@ int main()
     {
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 53, 54, 55, 56, 62, 63, 64, 65, 66,
         117, 118, 119, 120, 126, 127, 128, 129, 130, 923, 924, 925, 1022, 1023, 1024, 1025,
-        20000, 300000, 4000000, 50000000
+        20000, 300000, 4000000, 5000000
     };
 
     const unsigned kTestDataAmount = sizeof(kDataLengths)/sizeof(*kDataLengths);
@@ -225,7 +225,7 @@ int main()
         { "c76d791ddb256ba72cecc47d57415517"_md5hash, "baa1ca69a90f0095f9450298315040f1650abeb6"_sha1hash },
         { "023c3b711903e56bf823d64bb994aedc"_md5hash, "f158083117a2101498ad777506bd4acf589c77c3"_sha1hash },
         { "939dbdabe253ef36a91191514fa1e035"_md5hash, "3640a63ec0a4d5ec83b7cba3bda77b8239522731"_sha1hash },
-        { "3a8bd6a5b528c2fbbb5b88d2f0985dd2"_md5hash, "35fad9e39a7c6274f1300f15993e7d183d3cfbea"_sha1hash },
+        { "4519692f6c47f6465336c54c29a6801c"_md5hash, "8345ec118b4677f6e502cb13b6876c9ca1efcee7"_sha1hash },
     };
 
     const std::size_t kChunkSizes[] =

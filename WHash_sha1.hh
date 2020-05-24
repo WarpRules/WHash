@@ -26,7 +26,7 @@ class WHash::SHA1
  private:
     union HashData
     {
-        std::uint32_t h0, h1, h2, h3, h4;
+        struct { std::uint32_t h0, h1, h2, h3, h4; };
         unsigned char hash[20];
     };
 
@@ -173,21 +173,21 @@ inline void WHash::SHA1::update(const void* inputBytes, std::size_t inputBytesSi
 
 inline const unsigned char* WHash::SHA1::finish()
 {
-    const std::uint64_t inputBytesTotalSize = mInputBytesTotalSize;
+    const std::uint64_t inputTotalBits = mInputBytesTotalSize * 8;
 
     unsigned char appendData[64+8] = { 0x80 };
     unsigned appendDataSize = 64 - mBufferIndex;
     if(appendDataSize < 9) appendDataSize += 64;
 
     unsigned char* dataSizeDest = appendData + (appendDataSize - 8);
-    dataSizeDest[0] = static_cast<unsigned char>(inputBytesTotalSize >> (8*7));
-    dataSizeDest[1] = static_cast<unsigned char>(inputBytesTotalSize >> (8*6));
-    dataSizeDest[2] = static_cast<unsigned char>(inputBytesTotalSize >> (8*5));
-    dataSizeDest[3] = static_cast<unsigned char>(inputBytesTotalSize >> (8*4));
-    dataSizeDest[4] = static_cast<unsigned char>(inputBytesTotalSize >> (8*3));
-    dataSizeDest[5] = static_cast<unsigned char>(inputBytesTotalSize >> (8*2));
-    dataSizeDest[6] = static_cast<unsigned char>(inputBytesTotalSize >> 8);
-    dataSizeDest[7] = static_cast<unsigned char>(inputBytesTotalSize);
+    dataSizeDest[0] = static_cast<unsigned char>(inputTotalBits >> (8*7));
+    dataSizeDest[1] = static_cast<unsigned char>(inputTotalBits >> (8*6));
+    dataSizeDest[2] = static_cast<unsigned char>(inputTotalBits >> (8*5));
+    dataSizeDest[3] = static_cast<unsigned char>(inputTotalBits >> (8*4));
+    dataSizeDest[4] = static_cast<unsigned char>(inputTotalBits >> (8*3));
+    dataSizeDest[5] = static_cast<unsigned char>(inputTotalBits >> (8*2));
+    dataSizeDest[6] = static_cast<unsigned char>(inputTotalBits >> 8);
+    dataSizeDest[7] = static_cast<unsigned char>(inputTotalBits);
 
     update(appendData, appendDataSize);
 

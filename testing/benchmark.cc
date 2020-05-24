@@ -1,17 +1,19 @@
 #include "../WHash_md5.hh"
+#include "../WHash_sha1.hh"
 #include <cstdio>
 #include <cstdint>
 #include <chrono>
 
 volatile unsigned char dataSink;
 
-static void printMD5Hash(const unsigned char* sum)
+static void printHash(const unsigned char* hash, unsigned bytes)
 {
-    for(unsigned i = 0; i < 16; ++i)
-        std::printf("%02x", sum[i]);
+    for(unsigned i = 0; i < bytes; ++i)
+        std::printf("%02x", hash[i]);
 }
 
-int main()
+template<typename HashCalculator_t>
+void runBenchmark(const char* hashName)
 {
     const std::size_t kDataSize = 1024;
     const std::size_t kTestIterations = 1024*1024;
@@ -21,24 +23,32 @@ int main()
     for(unsigned i = 0; i < kDataSize/4; ++i)
         data[i] = (seed = seed * UINT32_C(3363461597) + UINT32_C(8346591));
 
-    WHash::MD5 md5Hasher;
+    HashCalculator_t hasher;
 
     std::chrono::time_point<std::chrono::high_resolution_clock> startTime =
         std::chrono::high_resolution_clock::now();
 
     for(std::size_t i = 0; i < kTestIterations; ++i)
-        md5Hasher.update(data, kDataSize);
+        hasher.update(data, kDataSize);
 
-    const unsigned char* hash = md5Hasher.finish();
-    dataSink = hash[0] + hash[15];
+    const unsigned char* hash = hasher.finish();
+    dataSink = hash[0] + hash[hasher.kDigestBytes - 1];
 
-    const std::chrono::time_point endTime = std::chrono::high_resolution_clock::now();
+    const std::chrono::time_point<std::chrono::high_resolution_clock> endTime =
+        std::chrono::high_resolution_clock::now();
     const std::chrono::duration<double> diff = endTime - startTime;
     const double seconds = diff.count();
 
     const std::size_t kTotalData = kDataSize * kTestIterations;
-    std::printf("Calculated MD5 hash of %zu MB of data in %.2f seconds, %.1f MB/s\nMD5 has was: ",
-                kTotalData / (1024*1024), seconds, kTotalData / (1024.0*1024.0) / seconds);
-    printMD5Hash(hash);
+    std::printf("Calculated %s hash of %zu MB of data in %.2f seconds, %.1f MB/s\n%s has was: ",
+                hashName, kTotalData / (1024*1024), seconds, kTotalData / (1024.0*1024.0) / seconds, hashName);
+    printHash(hash, hasher.kDigestBytes);
     std::printf("\n");
+}
+
+int main()
+{
+    std::printf("Running benchmarks...\n");
+    runBenchmark<WHash::MD5>("MD5");
+    runBenchmark<WHash::SHA1>("SHA1");
 }
