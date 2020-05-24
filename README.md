@@ -7,17 +7,34 @@ as possible, and implemented in standard C++ and thus usable as-is, without requ
 Currently supported hashes (more may be added in the future):
 
 * MD5: `WHash_md5.hh`
+* SHA1: `WHash_sha1.hh`
 
-## MD5
+## Benchmarks
 
-Header file: `WHash_md5.hh`
+The benchmarks were performed by using a 1 kB array initialized with random values, and feeding it
+again and again to the hasher, a total of 1048576 times, before calling `finalize()`. (As such a small
+array fits in the innermost cache of the CPU, this effectively measures raw computation speed of the
+class without any latency caused by cache misses etc.)
 
-Class: `WHash::MD5`
+The benchmarks were run on an i7-9800K, and compiled with `g++ -Ofast -march=skylake` using g++ 9.3.1.
 
-### Public interface:
+Class | Total time | MB/s
+--- | --- | ---
+`WHash::MD5` | 1.26 s | 814
+`WHash::SHA1` | 2.82 s | 363
+
+## Public interface
+
+Classes:
+
+* MD5: `WHash_md5.hh`: `WHash::MD5`
+* SHA1: `WHash_sha1.hh`: `WHash::SHA1`
+
+All classes use the same public interface. Only the name of the class is different.
 
 ```c++
-    static const unsigned kDigestBytes = 16;
+    // The length of the hash in bytes:
+    static const unsigned kDigestBytes;
 
     void initialize();
     void update(const void* inputBytes, std::size_t inputBytesSize);
@@ -25,14 +42,15 @@ Class: `WHash::MD5`
     const unsigned char* currentHash() const;
 ```
 
-### Usage:
+## Usage:
 
-Instantiate the `WHash::MD5` class, call its `update()` method with the input data, and then call
-the `finish()` method. This method returns a pointer to the 16-byte hash. This same pointer can also
-be retrieved later with `currentHash()`.
+Instantiate the class, call its `update()` method with the input data, and then call the `finish()` method.
+This method returns a pointer to the hash. The length of the hash (in bytes) is determined by the
+`kDigestBytes` static const member variable. This same pointer can also be retrieved later with `currentHash()`.
 
 The pointer returned by `finish()` and `currentHash()` points to an internal array, and thus it will
-be valid only for as long as this object exists.
+be valid only for as long as this object exists. Also calling any of the functions (such as `initialize()`)
+will invalidate the data pointed to by the pointer.
 
 Example:
 
