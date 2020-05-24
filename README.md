@@ -29,7 +29,12 @@ Class: `WHash::MD5`
 
 Instantiate the `WHash::MD5` class, call its `update()` method with the input data, and then call
 the `finish()` method. This method returns a pointer to the 16-byte hash. This same pointer can also
-be retrieved later with `currentHash()`. Example:
+be retrieved later with `currentHash()`.
+
+The pointer returned by `finish()` and `currentHash()` points to an internal array, and thus it will
+be valid only for as long as this object exists.
+
+Example:
 
 ```c++
 WHash::MD5 md5hasher;
