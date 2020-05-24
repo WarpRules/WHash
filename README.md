@@ -16,7 +16,7 @@ again and again to the hasher, a total of 1048576 times, before calling `finaliz
 array fits in the innermost cache of the CPU, this effectively measures raw computation speed of the
 class without any latency caused by cache misses etc.)
 
-The benchmarks were run on an i7-9800K, and compiled with `g++ -Ofast -march=skylake` using g++ 9.3.1.
+The benchmarks were run on an i7-9700K, and compiled with `g++ -Ofast -march=skylake` using g++ 9.3.1.
 
 Class | Total time | MB/s
 --- | --- | ---
