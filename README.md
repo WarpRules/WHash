@@ -42,7 +42,7 @@ All classes use the same public interface. Only the name of the class is differe
     const unsigned char* currentHash() const;
 ```
 
-## Usage:
+## Usage
 
 Instantiate the class, call its `update()` method with the input data, and then call the `finish()` method.
 This method returns a pointer to the hash. The length of the hash (in bytes) is determined by the
@@ -75,7 +75,7 @@ while(true)
     const std::size_t bytesAmount =
         std::fread(dataBuffer, 1, kBufferSize, inFile);
     if(bytesAmount == 0) break;
-    md5Hasher.update(dataBuffer, bytesAmount);
+    md5hasher.update(dataBuffer, bytesAmount);
 };
 
 const unsigned char* md5hash = md5hasher.finish();

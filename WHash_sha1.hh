@@ -47,13 +47,13 @@ inline WHash::SHA1::SHA1()
 
 inline void WHash::SHA1::initialize()
 {
+    mInputBytesTotalSize = 0;
+    mBufferIndex = 0;
     mHashData.h0 = UINT32_C(0x67452301);
     mHashData.h1 = UINT32_C(0xEFCDAB89);
     mHashData.h2 = UINT32_C(0x98BADCFE);
     mHashData.h3 = UINT32_C(0x10325476);
     mHashData.h4 = UINT32_C(0xC3D2E1F0);
-    mInputBytesTotalSize = 0;
-    mBufferIndex = 0;
 }
 
 inline std::uint32_t WHash::SHA1::bigEndianBytesToUInt32(const std::uint8_t* bytes)
