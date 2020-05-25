@@ -110,6 +110,7 @@ WHash::SHA2_base<UInt_t, kRounds,
                  kSumR4, kSumR5, kSumR6, kRoundConstants...>::processBuffer
 (const std::uint8_t* buffer)
 {
+    static_assert(sizeof...(kRoundConstants) == kRounds, "Number of round constants does not match kRounds");
     const UInt_t roundConstants[kRounds] = { kRoundConstants... };
 
     UInt_t w[kRounds];

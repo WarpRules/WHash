@@ -10,6 +10,7 @@ Currently supported hashes (more may be added in the future):
 * SHA1: `WHash_sha1.hh`
 * SHA256: `WHash_sha256.hh`
 * SHA224: `WHash_sha224.hh`
+* SHA512: `WHash_sha512.hh`
 
 ## Benchmarks
 
@@ -34,6 +35,7 @@ Classes:
 * SHA1: `WHash_sha1.hh`: `WHash::SHA1`
 * SHA256: `WHash_sha256.hh`: `WHash::SHA256`
 * SHA224: `WHash_sha224.hh`: `WHash::SHA224`
+* SHA512: `WHash_sha512.hh`: `WHash::SHA512`
 
 All classes use the same public interface. Only the name of the class is different.
 
