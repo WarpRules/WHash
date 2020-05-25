@@ -35,7 +35,7 @@ class WHash::SHA1
     unsigned mBufferIndex;
     HashData mHashData;
 
-    void processBuffer();
+    void processBuffer(const std::uint8_t*);
     static std::uint32_t bigEndianBytesToUInt32(const std::uint8_t*);
     static void assignAsBigEndian(unsigned char*, std::uint32_t);
 };
@@ -47,13 +47,13 @@ inline WHash::SHA1::SHA1()
 
 inline void WHash::SHA1::initialize()
 {
+    mInputBytesTotalSize = 0;
+    mBufferIndex = 0;
     mHashData.h0 = UINT32_C(0x67452301);
     mHashData.h1 = UINT32_C(0xEFCDAB89);
     mHashData.h2 = UINT32_C(0x98BADCFE);
     mHashData.h3 = UINT32_C(0x10325476);
     mHashData.h4 = UINT32_C(0xC3D2E1F0);
-    mInputBytesTotalSize = 0;
-    mBufferIndex = 0;
 }
 
 inline std::uint32_t WHash::SHA1::bigEndianBytesToUInt32(const std::uint8_t* bytes)
@@ -72,12 +72,12 @@ inline void WHash::SHA1::assignAsBigEndian(unsigned char* dest, std::uint32_t va
     dest[3] = static_cast<unsigned char>(value);
 }
 
-inline void WHash::SHA1::processBuffer()
+inline void WHash::SHA1::processBuffer(const std::uint8_t* buffer)
 {
     std::uint32_t w[80];
 
     for(unsigned i = 0; i < 16; ++i)
-        w[i] = bigEndianBytesToUInt32(mBuffer + i*4);
+        w[i] = bigEndianBytesToUInt32(buffer + i*4);
 
     for(unsigned i = 16; i < 32; ++i)
     {
@@ -152,15 +152,14 @@ inline void WHash::SHA1::update(const void* inputBytes, std::size_t inputBytesSi
             mBufferIndex = 0;
             inputData += bytesToCopy;
             inputBytesSize -= bytesToCopy;
-            processBuffer();
+            processBuffer(mBuffer);
         }
 
         while(inputBytesSize >= 64)
         {
-            std::memcpy(mBuffer, inputData, 64);
+            processBuffer(inputData);
             inputData += 64;
             inputBytesSize -= 64;
-            processBuffer();
         }
 
         if(inputBytesSize > 0)

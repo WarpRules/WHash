@@ -1,5 +1,9 @@
 #include "../WHash_md5.hh"
 #include "../WHash_sha1.hh"
+#include "../WHash_sha224.hh"
+#include "../WHash_sha256.hh"
+#include "../WHash_sha384.hh"
+#include "../WHash_sha512.hh"
 #include <cstdio>
 #include <cstdint>
 #include <chrono>
@@ -51,4 +55,8 @@ int main()
     std::printf("Running benchmarks...\n");
     runBenchmark<WHash::MD5>("MD5");
     runBenchmark<WHash::SHA1>("SHA1");
+    runBenchmark<WHash::SHA224>("SHA224");
+    runBenchmark<WHash::SHA256>("SHA256");
+    runBenchmark<WHash::SHA384>("SHA384");
+    runBenchmark<WHash::SHA512>("SHA512");
 }

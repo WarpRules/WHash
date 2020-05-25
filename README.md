@@ -8,6 +8,10 @@ Currently supported hashes (more may be added in the future):
 
 * MD5: `WHash_md5.hh`
 * SHA1: `WHash_sha1.hh`
+* SHA224: `WHash_sha224.hh`
+* SHA256: `WHash_sha256.hh`
+* SHA384: `WHash_sha384.hh`
+* SHA512: `WHash_sha512.hh`
 
 ## Benchmarks
 
@@ -22,6 +26,10 @@ Class | Total time | MB/s
 --- | --- | ---
 `WHash::MD5` | 1.26 s | 814
 `WHash::SHA1` | 2.82 s | 363
+`WHash::SHA224` | 3.31 s | 309
+`WHash::SHA256` | 3.31 s | 309
+`WHash::SHA384` | 2.96 s | 346
+`WHash::SHA512` | 3.01 s | 340
 
 ## Public interface
 
@@ -29,6 +37,10 @@ Classes:
 
 * MD5: `WHash_md5.hh`: `WHash::MD5`
 * SHA1: `WHash_sha1.hh`: `WHash::SHA1`
+* SHA224: `WHash_sha224.hh`: `WHash::SHA224`
+* SHA256: `WHash_sha256.hh`: `WHash::SHA256`
+* SHA384: `WHash_sha384.hh`: `WHash::SHA384`
+* SHA512: `WHash_sha512.hh`: `WHash::SHA512`
 
 All classes use the same public interface. Only the name of the class is different.
 
@@ -42,7 +54,7 @@ All classes use the same public interface. Only the name of the class is differe
     const unsigned char* currentHash() const;
 ```
 
-## Usage:
+## Usage
 
 Instantiate the class, call its `update()` method with the input data, and then call the `finish()` method.
 This method returns a pointer to the hash. The length of the hash (in bytes) is determined by the
@@ -75,7 +87,7 @@ while(true)
     const std::size_t bytesAmount =
         std::fread(dataBuffer, 1, kBufferSize, inFile);
     if(bytesAmount == 0) break;
-    md5Hasher.update(dataBuffer, bytesAmount);
+    md5hasher.update(dataBuffer, bytesAmount);
 };
 
 const unsigned char* md5hash = md5hasher.finish();
