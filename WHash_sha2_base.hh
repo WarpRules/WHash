@@ -32,7 +32,7 @@ namespace WHash
         unsigned mBufferIndex;
         HashData mHashData;
 
-        void processBuffer();
+        void processBuffer(const std::uint8_t*);
     };
 
     template<typename UInt_t>
@@ -107,14 +107,15 @@ WHash::SHA2_base<UInt_t, kRounds,
                  kSigmaR1, kSigmaR2, kSigmaS1,
                  kSigmaR3, kSigmaR4, kSigmaS2,
                  kSumR1, kSumR2, kSumR3,
-                 kSumR4, kSumR5, kSumR6, kRoundConstants...>::processBuffer()
+                 kSumR4, kSumR5, kSumR6, kRoundConstants...>::processBuffer
+(const std::uint8_t* buffer)
 {
     const UInt_t roundConstants[kRounds] = { kRoundConstants... };
 
     UInt_t w[kRounds];
 
     for(unsigned i = 0; i < 16; ++i)
-        w[i] = WHash::bigEndianBytesToUInt<UInt_t>(mBuffer + i*sizeof(UInt_t));
+        w[i] = WHash::bigEndianBytesToUInt<UInt_t>(buffer + i*sizeof(UInt_t));
 
     for(unsigned i = 16; i < kRounds; ++i)
     {
@@ -196,15 +197,14 @@ WHash::SHA2_base<UInt_t, kRounds,
             mBufferIndex = 0;
             inputData += bytesToCopy;
             inputBytesSize -= bytesToCopy;
-            processBuffer();
+            processBuffer(mBuffer);
         }
 
         while(inputBytesSize >= kBufferSize)
         {
-            std::memcpy(mBuffer, inputData, kBufferSize);
+            processBuffer(inputData);
             inputData += kBufferSize;
             inputBytesSize -= kBufferSize;
-            processBuffer();
         }
 
         if(inputBytesSize > 0)
@@ -234,7 +234,7 @@ WHash::SHA2_base<UInt_t, kRounds,
     const std::uint64_t inputTotalBits = mInputBytesTotalSize * 8;
 
     unsigned char appendData[kBufferSize + kLengthSize] = { 0x80 };
-    unsigned appendDataSize = kLengthSize - mBufferIndex;
+    unsigned appendDataSize = kBufferSize - mBufferIndex;
     if(appendDataSize < kLengthSize + 1) appendDataSize += kBufferSize;
 
     unsigned char* dataSizeDest = appendData + (appendDataSize - 8);

@@ -8,6 +8,8 @@ Currently supported hashes (more may be added in the future):
 
 * MD5: `WHash_md5.hh`
 * SHA1: `WHash_sha1.hh`
+* SHA256: `WHash_sha256.hh`
+* SHA224: `WHash_sha224.hh`
 
 ## Benchmarks
 
@@ -22,6 +24,7 @@ Class | Total time | MB/s
 --- | --- | ---
 `WHash::MD5` | 1.26 s | 814
 `WHash::SHA1` | 2.82 s | 363
+`WHash::SHA256` | 3.31 s | 309
 
 ## Public interface
 
@@ -29,6 +32,8 @@ Classes:
 
 * MD5: `WHash_md5.hh`: `WHash::MD5`
 * SHA1: `WHash_sha1.hh`: `WHash::SHA1`
+* SHA256: `WHash_sha256.hh`: `WHash::SHA256`
+* SHA224: `WHash_sha224.hh`: `WHash::SHA224`
 
 All classes use the same public interface. Only the name of the class is different.
 
