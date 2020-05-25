@@ -232,21 +232,38 @@ WHash::SHA2_base<UInt_t, kRounds,
     const unsigned kWordSize = sizeof(UInt_t);
     const unsigned kBufferSize = kWordSize * 16;
     const unsigned kLengthSize = kWordSize * 2;
-    const std::uint64_t inputTotalBits = mInputBytesTotalSize * 8;
 
     unsigned char appendData[kBufferSize + kLengthSize] = { 0x80 };
     unsigned appendDataSize = kBufferSize - mBufferIndex;
     if(appendDataSize < kLengthSize + 1) appendDataSize += kBufferSize;
 
-    unsigned char* dataSizeDest = appendData + (appendDataSize - 8);
-    dataSizeDest[0] = static_cast<unsigned char>(inputTotalBits >> (8*7));
-    dataSizeDest[1] = static_cast<unsigned char>(inputTotalBits >> (8*6));
-    dataSizeDest[2] = static_cast<unsigned char>(inputTotalBits >> (8*5));
-    dataSizeDest[3] = static_cast<unsigned char>(inputTotalBits >> (8*4));
-    dataSizeDest[4] = static_cast<unsigned char>(inputTotalBits >> (8*3));
-    dataSizeDest[5] = static_cast<unsigned char>(inputTotalBits >> (8*2));
-    dataSizeDest[6] = static_cast<unsigned char>(inputTotalBits >> 8);
-    dataSizeDest[7] = static_cast<unsigned char>(inputTotalBits);
+    if(kLengthSize == 8)
+    {
+        const std::uint64_t inputTotalBits = mInputBytesTotalSize * 8;
+        unsigned char* dataSizeDest = appendData + (appendDataSize - 8);
+        dataSizeDest[0] = static_cast<unsigned char>(inputTotalBits >> (8*7));
+        dataSizeDest[1] = static_cast<unsigned char>(inputTotalBits >> (8*6));
+        dataSizeDest[2] = static_cast<unsigned char>(inputTotalBits >> (8*5));
+        dataSizeDest[3] = static_cast<unsigned char>(inputTotalBits >> (8*4));
+        dataSizeDest[4] = static_cast<unsigned char>(inputTotalBits >> (8*3));
+        dataSizeDest[5] = static_cast<unsigned char>(inputTotalBits >> (8*2));
+        dataSizeDest[6] = static_cast<unsigned char>(inputTotalBits >> 8);
+        dataSizeDest[7] = static_cast<unsigned char>(inputTotalBits);
+    }
+    else
+    {
+        const std::uint64_t inputTotalBytes = mInputBytesTotalSize;
+        unsigned char* dataSizeDest = appendData + (appendDataSize - 9);
+        dataSizeDest[0] = static_cast<unsigned char>(inputTotalBytes >> (8*7+5));
+        dataSizeDest[1] = static_cast<unsigned char>(inputTotalBytes >> (8*6+5));
+        dataSizeDest[2] = static_cast<unsigned char>(inputTotalBytes >> (8*5+5));
+        dataSizeDest[3] = static_cast<unsigned char>(inputTotalBytes >> (8*4+5));
+        dataSizeDest[4] = static_cast<unsigned char>(inputTotalBytes >> (8*3+5));
+        dataSizeDest[5] = static_cast<unsigned char>(inputTotalBytes >> (8*2+5));
+        dataSizeDest[6] = static_cast<unsigned char>(inputTotalBytes >> (8+5));
+        dataSizeDest[7] = static_cast<unsigned char>(inputTotalBytes >> 5);
+        dataSizeDest[8] = static_cast<unsigned char>(inputTotalBytes << 3);
+    }
 
     update(appendData, appendDataSize);
 
