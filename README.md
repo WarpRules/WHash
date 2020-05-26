@@ -6,12 +6,13 @@ as possible, and implemented in standard C++ and thus usable as-is, without requ
 
 Currently supported hashes (more may be added in the future):
 
-* MD5: `WHash_md5.hh`
-* SHA1: `WHash_sha1.hh`
-* SHA224: `WHash_sha224.hh`
-* SHA256: `WHash_sha256.hh`
-* SHA384: `WHash_sha384.hh`
-* SHA512: `WHash_sha512.hh`
+* CRC32: `"WHash_crc32.hh"`
+* MD5: `"WHash_md5.hh"`
+* SHA1: `"WHash_sha1.hh"`
+* SHA224: `"WHash_sha224.hh"`
+* SHA256: `"WHash_sha256.hh"`
+* SHA384: `"WHash_sha384.hh"`
+* SHA512: `"WHash_sha512.hh"`
 
 ## Benchmarks
 
@@ -35,12 +36,13 @@ Class | Total time | MB/s
 
 Classes:
 
-* MD5: `WHash_md5.hh`: `WHash::MD5`
-* SHA1: `WHash_sha1.hh`: `WHash::SHA1`
-* SHA224: `WHash_sha224.hh`: `WHash::SHA224`
-* SHA256: `WHash_sha256.hh`: `WHash::SHA256`
-* SHA384: `WHash_sha384.hh`: `WHash::SHA384`
-* SHA512: `WHash_sha512.hh`: `WHash::SHA512`
+* CRC32: `"WHash_crc32.hh"`: `WHash::CRC32`
+* MD5: `"WHash_md5.hh"`: `WHash::MD5`
+* SHA1: `"WHash_sha1.hh"`: `WHash::SHA1`
+* SHA224: `"WHash_sha224.hh"`: `WHash::SHA224`
+* SHA256: `"WHash_sha256.hh"`: `WHash::SHA256`
+* SHA384: `"WHash_sha384.hh"`: `WHash::SHA384`
+* SHA512: `"WHash_sha512.hh"`: `WHash::SHA512`
 
 All classes use the same public interface. Only the name of the class is different.
 
@@ -53,6 +55,14 @@ All classes use the same public interface. Only the name of the class is differe
     const unsigned char* finish();
     const unsigned char* currentHash() const;
 ```
+
+In addition, the `WHash::CRC32` class has the member function
+
+```c++
+    std::uint32_t crc32Value() const;
+```
+
+(which can be used to retrieve the CRC32 hash as an integer after having called `finish()`.)
 
 ## Usage
 

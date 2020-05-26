@@ -1,3 +1,4 @@
+#include "../WHash_crc32.hh"
 #include "../WHash_md5.hh"
 #include "../WHash_sha1.hh"
 #include "../WHash_sha224.hh"
@@ -53,6 +54,7 @@ void runBenchmark(const char* hashName)
 int main()
 {
     std::printf("Running benchmarks...\n");
+    runBenchmark<WHash::CRC32>("CRC32");
     runBenchmark<WHash::MD5>("MD5");
     runBenchmark<WHash::SHA1>("SHA1");
     runBenchmark<WHash::SHA224>("SHA224");
