@@ -13,7 +13,7 @@ Currently supported hashes (more may be added in the future):
 * SHA256: `"WHash_sha256.hh"`
 * SHA384: `"WHash_sha384.hh"`
 * SHA512: `"WHash_sha512.hh"`
-* Extensive CRC collection: `"WHash_crc.hh"`. See [separate documentation.](https://github.com/WarpRules/WHash/blob/master/crc).md
+* Extensive CRC collection: `"WHash_crc.hh"`. See [separate documentation.](https://github.com/WarpRules/WHash/blob/master/crc.md)
 
 ## Benchmarks
 
