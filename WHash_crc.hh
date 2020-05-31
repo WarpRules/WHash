@@ -36,7 +36,7 @@ namespace WHash::CRC
     };
 
 
-    using CRC3_gsm = CRC<std::uint8_t, 3, 0x3, 0x0, 0x7, false>;
+    // using CRC3_gsm = CRC<std::uint8_t, 3, 0x3, 0x0, 0x7, false>; // no support yet.
     using CRC3_rohc = CRC<std::uint8_t, 3, 0x3, 0x7, 0x0, true>;
     using CRC4_g704 = CRC<std::uint8_t, 4, 0x3, 0x0, 0x0, true>;
     using CRC5_g704 = CRC<std::uint8_t, 5, 0x15, 0x00, 0x00, true>;

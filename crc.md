@@ -10,7 +10,7 @@ http://reveng.sourceforge.net/crc-catalogue/all.htm
 Using any of the predetermined type aliases happens in the exact same way as the other WHash
 classes, except that in addition to the other common member functions, the additional member
 function `crcValue()` is provided for convenience, which can be used to retrieve the CRC checksum
-after the `finish()` function has been called. (The return value of `crcValue()` depends on
+after the `finish()` function has been called. (The return type of `crcValue()` depends on
 the type of CRC). These type aliases are inside the `WHash::CRC` namespace (see full list below).
 
 For example:
@@ -61,7 +61,6 @@ These type aliases are provided inside the `WHash::CRC` namespace, implementing 
 CRC types listed at the above website:
 
 ```c++
-using CRC3_gsm = CRC<std::uint8_t, 3, 0x3, 0x0, 0x7, false>;
 using CRC3_rohc = CRC<std::uint8_t, 3, 0x3, 0x7, 0x0, true>;
 using CRC4_g704 = CRC<std::uint8_t, 4, 0x3, 0x0, 0x0, true>;
 using CRC5_g704 = CRC<std::uint8_t, 5, 0x15, 0x00, 0x00, true>;
