@@ -1,5 +1,6 @@
 #define GENERATE_HASHES 0
 
+#include "../WHash_crc.hh"
 #include "../WHash_crc32.hh"
 #include "../WHash_md5.hh"
 #include "../WHash_sha1.hh"
@@ -182,6 +183,75 @@ bool runTest(const char* hashName, unsigned dataIndex, unsigned dataLength, unsi
     return true;
 }
 
+template<typename CRCCalculator_t>
+bool runCRCTest(const char* name, typename CRCCalculator_t::Value_t check)
+{
+    const char* data = "123456789";
+    CRCCalculator_t calculator;
+    calculator.update(data, 9);
+    calculator.finish();
+
+    if(calculator.crcValue() != check)
+    {
+        std::printf("%s failed test: Check CRC should have been %llX but class returned %llX.\n",
+                    name, static_cast<unsigned long long>(check),
+                    static_cast<unsigned long long>(calculator.crcValue()));
+        return false;
+    }
+    return true;
+}
+
+bool runCRCTests()
+{
+    /* Parameters and check values are from
+       http://reveng.sourceforge.net/crc-catalogue/all.htm
+    */
+#define RUN_CRC_TEST(name, check) runCRCTest<WHash::CRC::name>("WHash::CRC::" #name, check)
+    return (RUN_CRC_TEST(CRC3_rohc, 0x06) &&
+            RUN_CRC_TEST(CRC4_g704, 0x07) &&
+            RUN_CRC_TEST(CRC5_g704, 0x07) &&
+            RUN_CRC_TEST(CRC5_usb, 0x19) &&
+            RUN_CRC_TEST(CRC6_darc, 0x26) &&
+            RUN_CRC_TEST(CRC6_g704, 0x06) &&
+            RUN_CRC_TEST(CRC7_rohc, 0x53) &&
+            RUN_CRC_TEST(CRC8_aes, 0x97) &&
+            RUN_CRC_TEST(CRC8_autosar, 0xdf) &&
+            RUN_CRC_TEST(CRC8_bluetooth, 0x26) &&
+            RUN_CRC_TEST(CRC8_cdma2000, 0xda) &&
+            RUN_CRC_TEST(CRC8_darc, 0x15) &&
+            RUN_CRC_TEST(CRC8_dvbs2, 0xbc) &&
+            RUN_CRC_TEST(CRC8_gsma, 0x37) &&
+            RUN_CRC_TEST(CRC8_gsmb, 0x94) &&
+            RUN_CRC_TEST(CRC8_itu, 0xa1) &&
+            RUN_CRC_TEST(CRC8_icode, 0x7e) &&
+            RUN_CRC_TEST(CRC8_lte, 0xea) &&
+            RUN_CRC_TEST(CRC8_maxim, 0xa1) &&
+            RUN_CRC_TEST(CRC8_mifare, 0x99) &&
+            RUN_CRC_TEST(CRC8_nrsc5, 0xf7) &&
+            RUN_CRC_TEST(CRC8_opensafety, 0x3e) &&
+            RUN_CRC_TEST(CRC8_rohc, 0xd0) &&
+            RUN_CRC_TEST(CRC8_saej1850, 0x4b) &&
+            RUN_CRC_TEST(CRC8_smbus, 0xf4) &&
+            RUN_CRC_TEST(CRC8_wcdma, 0x25) &&
+            RUN_CRC_TEST(CRC10_atm, 0x199) &&
+            RUN_CRC_TEST(CRC10_cdma2000, 0x233) &&
+            RUN_CRC_TEST(CRC10_gsm, 0x12a) &&
+            RUN_CRC_TEST(CRC11_flexray, 0x5a3) &&
+            RUN_CRC_TEST(CRC11_umts, 0x061) &&
+            RUN_CRC_TEST(CRC12_cdma2000, 0xd4d) &&
+            RUN_CRC_TEST(CRC12_dect, 0xf5b) &&
+            RUN_CRC_TEST(CRC12_gsm, 0xb34) &&
+            RUN_CRC_TEST(CRC12_umts, 0xdaf) &&
+            RUN_CRC_TEST(CRC13_bbc, 0x04fa) &&
+            RUN_CRC_TEST(CRC14_darc, 0x082d) &&
+            //RUN_CRC_TEST(, 0x) &&
+            RUN_CRC_TEST(CRC16_arc, 0xbb3d) &&
+            RUN_CRC_TEST(CRC16_cdma2000, 0x4c06) &&
+            RUN_CRC_TEST(CRC17_canfd, 0x04f03) &&
+            RUN_CRC_TEST(CRC21_canfd, 0xed841) &&
+            RUN_CRC_TEST(CRC32_iso, 0xcbf43926));
+}
+
 extern TestHashData kTestHashes[];
 
 int main()
@@ -258,6 +328,8 @@ int main()
 
     std::remove("testsdata.dat");
 #else
+    if(!runCRCTests()) return 1;
+
     const std::size_t kChunkSizes[] =
     {
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 21, 22, 23, 24, 25, 26, 30, 31, 32, 33, 34, 35,
