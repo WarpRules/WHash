@@ -1,7 +1,6 @@
 #ifndef WHASH_CRC32_HH__
 #define WHASH_CRC32_HH__
 
-#include <cstring>
 #include <cstdint>
 
 #define WHASH_CRC32_VERSION 0x010000
