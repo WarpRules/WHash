@@ -244,12 +244,67 @@ bool runCRCTests()
             RUN_CRC_TEST(CRC12_umts, 0xdaf) &&
             RUN_CRC_TEST(CRC13_bbc, 0x04fa) &&
             RUN_CRC_TEST(CRC14_darc, 0x082d) &&
-            //RUN_CRC_TEST(, 0x) &&
+            RUN_CRC_TEST(CRC14_gsm, 0x30ae) &&
+            RUN_CRC_TEST(CRC15_can, 0x059e) &&
+            RUN_CRC_TEST(CRC15_mpt1327, 0x2566) &&
             RUN_CRC_TEST(CRC16_arc, 0xbb3d) &&
             RUN_CRC_TEST(CRC16_cdma2000, 0x4c06) &&
+            RUN_CRC_TEST(CRC16_cms, 0xaee7) &&
+            RUN_CRC_TEST(CRC16_dds110, 0x9ecf) &&
+            RUN_CRC_TEST(CRC16_dectr, 0x007e) &&
+            RUN_CRC_TEST(CRC16_dectx, 0x007f) &&
+            RUN_CRC_TEST(CRC16_dnp, 0xea82) &&
+            RUN_CRC_TEST(CRC16_en13757, 0xc2b7) &&
+            RUN_CRC_TEST(CRC16_genibus, 0xd64e) &&
+            RUN_CRC_TEST(CRC16_gsm, 0xce3c) &&
+            RUN_CRC_TEST(CRC16_ibm3740, 0x29b1) &&
+            RUN_CRC_TEST(CRC16_ibmsdlc, 0x906e) &&
+            RUN_CRC_TEST(CRC16_iso, 0xbf05) &&
+            RUN_CRC_TEST(CRC16_kermit, 0x2189) &&
+            RUN_CRC_TEST(CRC16_lj1200, 0xbdf4) &&
+            RUN_CRC_TEST(CRC16_maxim, 0x44c2) &&
+            RUN_CRC_TEST(CRC16_mcrf4xx, 0x6f91) &&
+            RUN_CRC_TEST(CRC16_modbus, 0x4b37) &&
+            RUN_CRC_TEST(CRC16_nrsc5, 0xa066) &&
+            RUN_CRC_TEST(CRC16_opensafetya, 0x5d38) &&
+            RUN_CRC_TEST(CRC16_opensafetyb, 0x20fe) &&
+            RUN_CRC_TEST(CRC16_profibus, 0xa819) &&
+            RUN_CRC_TEST(CRC16_riello, 0x63d0) &&
+            RUN_CRC_TEST(CRC16_spifujitsu, 0xe5cc) &&
+            RUN_CRC_TEST(CRC16_t10dif, 0xd0db) &&
+            RUN_CRC_TEST(CRC16_teledisk, 0x0fb3) &&
+            RUN_CRC_TEST(CRC16_tms37157, 0x26b1) &&
+            RUN_CRC_TEST(CRC16_umts, 0xfee8) &&
+            RUN_CRC_TEST(CRC16_usb, 0xb4c8) &&
+            RUN_CRC_TEST(CRC16_xmodem, 0x31c3) &&
             RUN_CRC_TEST(CRC17_canfd, 0x04f03) &&
             RUN_CRC_TEST(CRC21_canfd, 0xed841) &&
-            RUN_CRC_TEST(CRC32_iso, 0xcbf43926));
+            //RUN_CRC_TEST(CRC24_ble, 0xc25a56) &&
+            RUN_CRC_TEST(CRC24_flexraya, 0x7979bd) &&
+            RUN_CRC_TEST(CRC24_flexrayb, 0x1f23b8) &&
+            RUN_CRC_TEST(CRC24_interlaken, 0xb4f3e6) &&
+            RUN_CRC_TEST(CRC24_ltea, 0xcde703) &&
+            RUN_CRC_TEST(CRC24_lteb, 0x23ef52) &&
+            RUN_CRC_TEST(CRC24_openpgp, 0x21cf02) &&
+            RUN_CRC_TEST(CRC24_os9, 0x200fa5) &&
+            RUN_CRC_TEST(CRC30_cdma, 0x04c34abf) &&
+            RUN_CRC_TEST(CRC31_philips, 0x0ce9e46c) &&
+            RUN_CRC_TEST(CRC32_aixm, 0x3010bf7f) &&
+            RUN_CRC_TEST(CRC32_autosar, 0x1697d06a) &&
+            RUN_CRC_TEST(CRC32_base91d, 0x87315576) &&
+            RUN_CRC_TEST(CRC32_bzip2, 0xfc891918) &&
+            RUN_CRC_TEST(CRC32_cdromedc, 0x6ec2edc4) &&
+            RUN_CRC_TEST(CRC32_cksum, 0x765e7680) &&
+            RUN_CRC_TEST(CRC32_iscsi, 0xe3069283) &&
+            RUN_CRC_TEST(CRC32_isohdlc, 0xcbf43926) &&
+            RUN_CRC_TEST(CRC32_jamcrc, 0x340bc6d9) &&
+            RUN_CRC_TEST(CRC32_mpeg2, 0x0376e6e7) &&
+            RUN_CRC_TEST(CRC32_xfer, 0xbd0be338) &&
+            RUN_CRC_TEST(CRC40_gsm, 0xd4164fc646) &&
+            RUN_CRC_TEST(CRC64_ecma182, 0x6c40df5f0b497347) &&
+            RUN_CRC_TEST(CRC64_goiso, 0xb90956c775a41001) &&
+            RUN_CRC_TEST(CRC64_we, 0x62ec59e3f1a4f00a) &&
+            RUN_CRC_TEST(CRC64_xz, 0x995dc9bbdf1939fa));
 }
 
 extern TestHashData kTestHashes[];
