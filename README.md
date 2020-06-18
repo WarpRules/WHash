@@ -15,6 +15,9 @@ Currently supported hashes (more may be added in the future):
 * SHA512: `"WHash_sha512.hh"`
 * Extensive CRC collection: `"WHash_crc.hh"`. See [separate documentation.](https://github.com/WarpRules/WHash/blob/master/crc.md)
 
+Additionally an implementation of the cryptographically strong ISAAC pseudorandom number generator
+is provided. See [separate documentation.](https://github.com/WarpRules/WHash/blob/master/isaac.md)
+
 ## Benchmarks
 
 The benchmarks were performed by using a 1 kB array initialized with random values, and feeding it
