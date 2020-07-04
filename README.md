@@ -13,6 +13,7 @@ Currently supported hashes (more may be added in the future):
 * SHA256: `"WHash_sha256.hh"`
 * SHA384: `"WHash_sha384.hh"`
 * SHA512: `"WHash_sha512.hh"`
+* SHA3_224, SHA3_256, SHA3_384, SHA3_512: `"WHash_sha3.hh"`
 * Extensive CRC collection: `"WHash_crc.hh"`. See [separate documentation.](https://github.com/WarpRules/WHash/blob/master/crc.md)
 
 Additionally an implementation of the cryptographically strong ISAAC pseudorandom number generator
@@ -35,6 +36,10 @@ Class | Total time | MB/s
 `WHash::SHA256` | 3.31 s | 309
 `WHash::SHA384` | 2.96 s | 346
 `WHash::SHA512` | 3.01 s | 340
+`WHash::SHA3_224` | 1.92 s | 533
+`WHash::SHA3_256` | 2.04 s | 501
+`WHash::SHA3_384` | 2.65 s | 386
+`WHash::SHA3_512` | 3.81 s | 269
 
 ## Public interface
 
@@ -47,6 +52,10 @@ Classes:
 * SHA256: `"WHash_sha256.hh"`: `WHash::SHA256`
 * SHA384: `"WHash_sha384.hh"`: `WHash::SHA384`
 * SHA512: `"WHash_sha512.hh"`: `WHash::SHA512`
+* SHA3_224: `"WHash_sha3.hh"`: `WHash::SHA3_224`
+* SHA3_256: `"WHash_sha3.hh"`: `WHash::SHA3_256`
+* SHA3_384: `"WHash_sha3.hh"`: `WHash::SHA3_384`
+* SHA3_512: `"WHash_sha3.hh"`: `WHash::SHA3_512`
 
 All classes use the same public interface. Only the name of the class is different.
 

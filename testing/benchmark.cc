@@ -5,6 +5,7 @@
 #include "../WHash_sha256.hh"
 #include "../WHash_sha384.hh"
 #include "../WHash_sha512.hh"
+#include "../WHash_sha3.hh"
 #include <cstdio>
 #include <cstdint>
 #include <chrono>
@@ -61,4 +62,8 @@ int main()
     runBenchmark<WHash::SHA256>("SHA256");
     runBenchmark<WHash::SHA384>("SHA384");
     runBenchmark<WHash::SHA512>("SHA512");
+    runBenchmark<WHash::SHA3_224>("SHA3_224");
+    runBenchmark<WHash::SHA3_256>("SHA3_256");
+    runBenchmark<WHash::SHA3_384>("SHA3_384");
+    runBenchmark<WHash::SHA3_512>("SHA3_512");
 }
