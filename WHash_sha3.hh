@@ -163,14 +163,11 @@ inline void WHash::keccakF1600(std::uint64_t* state)
 
     for( unsigned int round = 0; round < 24; round += 2 )
     {
-        //    prepareTheta
         std::uint64_t BCa = Aba^Aga^Aka^Ama^Asa;
         std::uint64_t BCe = Abe^Age^Ake^Ame^Ase;
         std::uint64_t BCi = Abi^Agi^Aki^Ami^Asi;
         std::uint64_t BCo = Abo^Ago^Ako^Amo^Aso;
         std::uint64_t BCu = Abu^Agu^Aku^Amu^Asu;
-
-        //thetaRhoPiChiIotaPrepareTheta(round  , A, E)
         std::uint64_t Da = BCu^WHash::rotl<1>(BCe);
         std::uint64_t De = BCa^WHash::rotl<1>(BCi);
         std::uint64_t Di = BCe^WHash::rotl<1>(BCo);
@@ -258,14 +255,11 @@ inline void WHash::keccakF1600(std::uint64_t* state)
         std::uint64_t Eso = BCo ^((~BCu)&  BCa );
         std::uint64_t Esu = BCu ^((~BCa)&  BCe );
 
-        //    prepareTheta
         BCa = Eba^Ega^Eka^Ema^Esa;
         BCe = Ebe^Ege^Eke^Eme^Ese;
         BCi = Ebi^Egi^Eki^Emi^Esi;
         BCo = Ebo^Ego^Eko^Emo^Eso;
         BCu = Ebu^Egu^Eku^Emu^Esu;
-
-        //thetaRhoPiChiIotaPrepareTheta(round+1, E, A)
         Da = BCu^WHash::rotl<1>(BCe);
         De = BCa^WHash::rotl<1>(BCi);
         Di = BCe^WHash::rotl<1>(BCo);
