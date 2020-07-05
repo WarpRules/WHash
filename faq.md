@@ -23,7 +23,7 @@ int main(int argc, char** argv)
     while(true)
     {
         const std::size_t amount =
-            std::fread(inputBuffer, 1, 1, inFile);
+            std::fread(inputBuffer, 1, 65536, inFile);
         if(!amount) break;
         hasher.Update(inputBuffer, amount);
     }
