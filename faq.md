@@ -61,6 +61,9 @@ Executable file | bytes
 sha256_cryptopp | 1494136
 sha256_whash | 18608
 
+Even the `calchashes.cc` example program in the examples directory, which uses all the hashes in this project
+(except the ones in `WHash_crc.hh`) takes about 0.79 seconds to compile and is about 50 kB in size.
+
 That's why.
 
 **"Well, just compile Crypto++ into an .so file."**
