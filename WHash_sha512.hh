@@ -34,7 +34,7 @@ namespace WHash
         SHA512();
         void initialize();
     };
-};
+}
 
 inline WHash::SHA512::SHA512()
 {

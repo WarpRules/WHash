@@ -9,6 +9,7 @@
 #include "../WHash_sha384.hh"
 #include "../WHash_sha512.hh"
 #include "../WHash_sha3.hh"
+#include "../WHash_utilities.hh"
 #include <cstdio>
 #include <cstdint>
 #include <cctype>
@@ -313,6 +314,40 @@ bool runCRCTests()
             RUN_CRC_TEST(CRC64_xz, 0x995dc9bbdf1939fa));
 }
 
+static void printArray(const unsigned char *a, std::size_t bytesAmount)
+{
+    if(bytesAmount == 0) std::printf("[]");
+    std::printf("[ %u", a[0]);
+    for(std::size_t i = 1; i < bytesAmount; ++i)
+        std::printf(", %u", a[i]);
+    std::printf(" ]");
+}
+
+static bool checkByteArraysEqual(const unsigned char *a1, const unsigned char *a2, std::size_t bytesAmount, bool expected)
+{
+    const bool result = WHash::byteArraysEqual(a1, a2, bytesAmount);
+    if(result != expected)
+    {
+        std::printf("Comparing array:\n");
+        printArray(a1, bytesAmount);
+        std::printf("\nand:\n");
+        printArray(a2, bytesAmount);
+        std::printf("\nreturned %i instead of %i\n", result, expected);
+        return false;
+    }
+    return true;
+}
+
+static bool runUtilitiesTests()
+{
+    const unsigned char data1[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    const unsigned char data2[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11 };
+    for(std::size_t i = 0; i <= 10; ++i)
+        if(!checkByteArraysEqual(data1, data2, i, true))
+            return false;
+    return checkByteArraysEqual(data1, data2, 11, false);
+}
+
 extern TestHashData kTestHashes[];
 
 int main()
@@ -457,6 +492,8 @@ int main()
                 break;
         }
     }
+
+    if(!runUtilitiesTests()) return 1;
 
     std::printf("Tests ok.\n");
 #endif

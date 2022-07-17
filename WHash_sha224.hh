@@ -26,7 +26,7 @@ namespace WHash
         SHA224();
         void initialize();
     };
-};
+}
 
 inline WHash::SHA224::SHA224()
 {

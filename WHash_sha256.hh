@@ -26,7 +26,7 @@ namespace WHash
         SHA256();
         void initialize();
     };
-};
+}
 
 inline WHash::SHA256::SHA256()
 {

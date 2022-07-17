@@ -34,7 +34,7 @@ namespace WHash
         SHA384();
         void initialize();
     };
-};
+}
 
 inline WHash::SHA384::SHA384()
 {
